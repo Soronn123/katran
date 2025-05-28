@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Товары - Katran{% endblock %}
+
+{% block content %}
+<section class="py-12 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <!-- Заголовок и фильтры -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4 md:mb-0">Наши товары</h1>
+            
+            <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+                <div class="relative">
+                    <select class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option>Все категории</option>
+                        {% for type in types %}
+                        {% if type.type == 1 %}
+                        <option value="{{ type.id }}">{{ type.name }}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <select class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option>Сортировка</option>
+                        <option>По цене (возрастание)</option>
+                        <option>По цене (убывание)</option>
+                        <option>По новизне</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Список товаров -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {% for product in products %}
+            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 fade-in opacity-0">
+                <a href="{% url 'item_detail' product.id %}">
+                    <div class="relative overflow-hidden h-48">
+                        {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        {% else %}
+                        <div class="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
+                            <i class="fas fa-box text-4xl"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-1 hover:text-blue-600 transition-colors duration-300">{{ product.name }}</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                {% for i in "12345" %}
+                                    <i class="fas fa-star{% if forloop.counter > 4 %} text-gray-300{% endif %}"></i>
+                                {% endfor %}
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">(12)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-blue-600">{{ product.price }} ₽</span>
+                            <button class="add-to-cart bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition-colors duration-300" data-product-id="{{ product.id }}">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% empty %}
+            <div class="col-span-full text-center py-12">
+                <i class="fas fa-box-open text-4xl text-gray-300 mb-4"></i>
+                <p class="text-gray-500">Товары временно отсутствуют</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Пагинация -->
+        {% if products.has_other_pages %}
+        <div class="mt-12 flex justify-center">
+            <nav class="flex items-center space-x-2">
+                {% if products.has_previous %}
+                <a href="?page={{ products.previous_page_number }}" class="px-3 py-1 rounded-lg border border-gray-300 hover:bg-gray-100 transition-colors duration-300">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+                {% endif %}
+                
+                {% for num in products.paginator.page_range %}
+                    {% if products.number == num %}
+                    <span class="px-3 py-1 rounded-lg bg-blue-600 text-white">{{ num }}</span>
+                    {% else %}
+                    <a href="?page={{ num }}" class="px-3 py-1 rounded-lg border border-gray-300 hover:bg-gray-100 transition-colors duration-300">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if products.has_next %}
+                <a href="?page={{ products.next_page_number }}" class="px-3 py-1 rounded-lg border border-gray-300 hover:bg-gray-100 transition-colors duration-300">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+                {% endif %}
+            </nav>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}{{ item.name }} - Katran{% endblock %}
+
+{% block content %}
+<section class="py-12 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="md:flex">
+                <div class="md:w-1/2 p-6">
+                    <div class="h-64 md:h-full bg-gray-100 rounded-lg overflow-hidden">
+                        {% if item.image %}
+                        <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-full h-full object-cover">
+                        {% else %}
+                        <div class="w-full h-full flex items-center justify-center text-gray-400">
+                            <i class="fas fa-box text-6xl"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 p-6">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-800">{{ item.name }}</h1>
+                            <div class="flex items-center mt-2">
+                                <div class="flex text-yellow-400">
+                                    {% for i in "12345" %}
+                                        <i class="fas fa-star{% if forloop.counter > 4 %} text-gray-300{% endif %}"></i>
+                                    {% endfor %}
+                                </div>
+                                <span class="text-gray-500 text-sm ml-2">(12 отзывов)</span>
+                            </div>
+                        </div>
+                        <span class="text-2xl font-bold text-blue-600">{{ item.price }} ₽</span>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h3 class="text-lg font-semibold text-gray-800">Описание</h3>
+                        <div class="mt-2 text-gray-600 prose max-w-none">
+                            {{ item.text|linebreaks }}
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                        <button class="btn-primary-lg flex-grow flex items-center justify-center">
+                            <i class="fas fa-shopping-cart mr-2"></i> Добавить в корзину
+                        </button>
+                        <button class="btn-secondary-lg flex-grow">
+                            <i class="fas fa-heart mr-2"></i> В избранное
+                        </button>
+                    </div>
+                    
+                    <div class="mt-8 pt-6 border-t border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-800">Характеристики</h3>
+                        <div class="mt-4 grid grid-cols-2 gap-4">
+                            <div>
+                                <span class="text-sm text-gray-500">Тип</span>
+                                <p class="font-medium">{{ item.typeId.name }}</p>
+                            </div>
+                            <div>
+                                <span class="text-sm text-gray-500">Дата добавления</span>
+                                <p class="font-medium">{{ item.dateCreated|date:"d.m.Y" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Похожие товары -->
+        <div class="mt-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Похожие товары</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {% for similar in similar_items %}
+                <a href="{% url 'item_detail' similar.id %}" class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <div class="h-48 bg-gray-100 overflow-hidden">
+                        {% if similar.image %}
+                        <img src="{{ similar.image.url }}" alt="{{ similar.name }}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        {% else %}
+                        <div class="w-full h-full flex items-center justify-center text-gray-400">
+                            <i class="fas fa-box text-4xl"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-1">{{ similar.name }}</h3>
+                        <p class="text-blue-600 font-bold">{{ similar.price }} ₽</p>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

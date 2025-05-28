@@ -1,0 +1,102 @@
+/* Base animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Navigation links */
+.nav-link {
+    @apply text-gray-700 hover:text-blue-600 transition-colors duration-300 relative;
+}
+
+.nav-link::after {
+    @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300;
+}
+
+.nav-link:hover::after {
+    @apply w-full;
+}
+
+.nav-link-mobile {
+    @apply block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-md transition-colors duration-300;
+}
+
+/* Buttons */
+.btn-primary {
+    @apply px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300;
+}
+
+.btn-secondary {
+    @apply px-4 py-2 bg-white border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors duration-300;
+}
+
+.btn-primary-lg {
+    @apply px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 inline-flex items-center;
+}
+
+.btn-secondary-lg {
+    @apply px-6 py-3 bg-white text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors duration-300 inline-flex items-center;
+}
+
+.btn-white-lg {
+    @apply px-6 py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition-colors duration-300 inline-flex items-center;
+}
+
+.btn-primary-mobile {
+    @apply w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 text-center;
+}
+
+.btn-secondary-mobile {
+    @apply w-full px-4 py-2 bg-white border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors duration-300 text-center;
+}
+
+/* Form inputs */
+.input-field {
+    @apply appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm transition-all duration-300;
+}
+
+/* Fade-in animation */
+.fade-in {
+    @apply opacity-0 transition-opacity duration-500;
+}
+
+/* Cart count animation */
+.cart-count {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Hover effects */
+.hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+}
+
+.btn-cart {
+    @apply inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300;
+}
+
+.btn-cart-icon {
+    @apply -ml-1 mr-2 h-5 w-5;
+}
+
+.btn-cart-text {
+    @apply text-sm font-medium;
+}
+
+/* Анимация при добавлении в корзину */
+@keyframes cartBounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.added-to-cart {
+    animation: cartBounce 0.5s ease;
+}

@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Корзина - Katran{% endblock %}
+
+{% block content %}
+<section class="py-12 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">Ваша корзина</h1>
+        
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <!-- Товары -->
+            <div class="p-6 border-b border-gray-200">
+                <h2 class="text-xl font-semibold mb-4">Товары</h2>
+                
+                {% if cart_items %}
+                <div class="space-y-4">
+                    {% for item in cart_items %}
+                    <div class="flex flex-col md:flex-row items-start md:items-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow duration-300">
+                        <div class="flex-shrink-0 w-20 h-20 bg-gray-100 rounded-lg overflow-hidden mr-4 mb-4 md:mb-0">
+                            {% if item.itemId.image %}
+                            <img src="{{ item.itemId.image.url }}" alt="{{ item.itemId.name }}" class="w-full h-full object-cover">
+                            {% else %}
+                            <div class="w-full h-full flex items-center justify-center text-gray-400">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="font-medium">{{ item.itemId.name }}</h3>
+                            <p class="text-gray-600">{{ item.itemId.price }} ₽</p>
+                        </div>
+                        <div class="flex items-center mt-4 md:mt-0">
+                            <form method="POST" action="{% url 'remove_from_cart_item' item.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="text-red-500 hover:text-red-700 transition-colors duration-300 mr-6">
+                                    <i class="fas fa-trash"></i> Удалить
+                                </button>
+                            </form>
+                            <span class="font-bold text-lg">{{ item.itemId.price }} ₽</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-8">
+                    <i class="fas fa-box-open text-4xl text-gray-300 mb-4"></i>
+                    <p class="text-gray-500">Нет товаров в корзине</p>
+                    <a href="{% url 'products' %}" class="btn-primary mt-4 inline-block">Перейти к товарам</a>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Услуги -->
+            <div class="p-6 border-b border-gray-200">
+                <h2 class="text-xl font-semibold mb-4">Услуги</h2>
+                
+                {% if cart_services %}
+                <div class="space-y-4">
+                    {% for service in cart_services %}
+                    <div class="flex flex-col md:flex-row items-start md:items-center p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow duration-300">
+                        <div class="flex-shrink-0 w-20 h-20 bg-gray-100 rounded-lg overflow-hidden mr-4 mb-4 md:mb-0 flex items-center justify-center">
+                            <i class="fas fa-shield-alt text-gray-400 text-2xl"></i>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="font-medium">{{ service.serviceId.name }}</h3>
+                            <p class="text-gray-600">{{ service.serviceId.price }} ₽</p>
+                            <p class="text-sm text-gray-500 mt-1">
+                                <i class="fas fa-calendar-alt mr-1"></i> {{ service.dateVisit|date:"d.m.Y H:i" }}
+                            </p>
+                        </div>
+                        <div class="flex items-center mt-4 md:mt-0">
+                            <form method="POST" action="{% url 'remove_from_cart_service' service.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="text-red-500 hover:text-red-700 transition-colors duration-300 mr-6">
+                                    <i class="fas fa-trash"></i> Удалить
+                                </button>
+                            </form>
+                            <span class="font-bold text-lg">{{ service.serviceId.price }} ₽</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-8">
+                    <i class="fas fa-concierge-bell text-4xl text-gray-300 mb-4"></i>
+                    <p class="text-gray-500">Нет услуг в корзине</p>
+                    <a href="{% url 'services' %}" class="btn-primary mt-4 inline-block">Перейти к услугам</a>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Итого и кнопки -->
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-lg font-semibold">Итого:</span>
+                    <span class="text-2xl font-bold">{{ total_price }} ₽</span>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="{% url 'products' %}" class="btn-secondary flex-grow text-center">
+                        <i class="fas fa-arrow-left mr-2"></i> Продолжить покупки
+                    </a>
+                    {% if cart_items or cart_services %}
+                    <a href="{% url 'checkout' %}" class="btn-primary-lg flex-grow text-center">
+                        <i class="fas fa-credit-card mr-2"></i> Оформить заказ
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

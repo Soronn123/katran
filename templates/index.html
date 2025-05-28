@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Главная {% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section class="relative bg-blue-700 text-white py-20 overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-40"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-3xl mx-auto text-center fade-in opacity-0 transition-opacity duration-500">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6 animate-float">Ваша безопасность - наш приоритет</h1>
+                <p class="text-xl mb-8">Профессиональные охранные услуги и оборудование для вашей защиты</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#services" class="btn-primary-lg transform hover:scale-105 transition-transform duration-300">
+                        Наши услуги <i class="fas fa-arrow-down ml-2"></i>
+                    </a>
+                    <a href="#contact" class="btn-secondary-lg transform hover:scale-105 transition-transform duration-300">
+                        Связаться с нами
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 h-16 bg-white transform skew-y-2 origin-top-left"></div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in opacity-0">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Наши услуги</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {% for service in services %}
+                    <div class="bg-gray-50 rounded-lg p-6 shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2 fade-in opacity-0">
+                        <div class="text-blue-600 text-4xl mb-4">
+                            <i class="{{ service.iconId.class_name }}"></i> 
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">{{ service.name }}</h3>
+                        <p class="text-gray-600 mb-4">{{ service.text }}</p>
+                        <a href="#" class="text-blue-600 font-medium inline-flex items-center group">
+                            Подробнее 
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
+                        </a>
+                    </div>                   
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in opacity-0">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Наши товары</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                {% for product in products %}
+                <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 fade-in opacity-0">
+                    <div class="relative overflow-hidden h-48">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover">
+                        {% else %}
+                            <div class="w-full h-full flex items-center justify-center bg-gray-100">
+                                <span class="text-gray-400">Нет изображения</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg mb-1">{{ product.name }}</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-blue-600">{{ product.price }} ₽</span>
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors duration-300 add-to-cart" data-product-id="{{ product.id }}">
+                                <i class="fas fa-shopping-cart mr-2"></i> Добавить
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-blue-600 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <div class="max-w-3xl mx-auto fade-in opacity-0">
+                <h2 class="text-3xl font-bold mb-6">Готовы обеспечить свою безопасность?</h2>
+                <p class="text-xl mb-8">Свяжитесь с нами сегодня для бесплатной консультации</p>
+                <a href="#contact" class="btn-white-lg transform hover:scale-105 transition-transform duration-300">
+                    <i class="fas fa-phone-alt mr-2"></i> Заказать звонок
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

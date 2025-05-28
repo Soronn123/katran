@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}О компании - Katran{% endblock %}
+
+{% block content %}
+<section class="py-12 bg-white">
+    <div class="container mx-auto px-6">
+        <!-- Hero Section -->
+        <div class="text-center mb-16">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Охранное агентство Katran</h1>
+            <div class="w-32 h-1 bg-blue-600 mx-auto"></div>
+        </div>
+
+        <!-- О компании -->
+        <div class="mb-16">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="md:w-1/2">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Наша история</h2>
+                    <p class="text-gray-600 mb-4">
+                        Katran было основано в 2010 году группой профессионалов с многолетним опытом работы в сфере безопасности. 
+                        Начав с небольшой команды из 5 человек, сегодня мы насчитываем более 200 сотрудников по всей стране.
+                    </p>
+                    <p class="text-gray-600">
+                        Наша миссия - обеспечить максимальную безопасность наших клиентов, используя современные технологии 
+                        и проверенные методики охраны.
+                    </p>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="{% static 'img/about-team.jpg' %}" alt="Наша команда" class="rounded-lg shadow-xl">
+                </div>
+            </div>
+        </div>
+
+        <!-- Наши ценности -->
+        <div class="mb-16 bg-gray-50 rounded-xl p-8">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-8">Наши ценности</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-4">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-600 text-2xl">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Надежность</h3>
+                    <p class="text-gray-600">Мы выполняем свои обязательства в любое время и в любых условиях</p>
+                </div>
+                <div class="text-center p-4">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-600 text-2xl">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Конфиденциальность</h3>
+                    <p class="text-gray-600">Мы гарантируем полную конфиденциальность информации о наших клиентах</p>
+                </div>
+                <div class="text-center p-4">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-600 text-2xl">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Инновации</h3>
+                    <p class="text-gray-600">Мы постоянно внедряем новые технологии для повышения уровня безопасности</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Наша команда -->
+        <div class="mb-16">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-8">Наша команда</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden text-center p-4">
+                    <img src="{% static 'img/team1.jpg' %}" alt="Директор" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                    <h3 class="text-lg font-semibold">Александр Петров</h3>
+                    <p class="text-blue-600 mb-2">Генеральный директор</p>
+                    <p class="text-gray-600 text-sm">Опыт работы в безопасности - 15 лет</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden text-center p-4">
+                    <img src="{% static 'img/team2.jpg' %}" alt="Менеджер" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                    <h3 class="text-lg font-semibold">Елена Смирнова</h3>
+                    <p class="text-blue-600 mb-2">Менеджер по работе с клиентами</p>
+                    <p class="text-gray-600 text-sm">Работает в компании с 2012 года</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden text-center p-4">
+                    <img src="{% static 'img/team3.jpg' %}" alt="Технический директор" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                    <h3 class="text-lg font-semibold">Дмитрий Иванов</h3>
+                    <p class="text-blue-600 mb-2">Технический директор</p>
+                    <p class="text-gray-600 text-sm">Специалист по кибербезопасности</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md overflow-hidden text-center p-4">
+                    <img src="{% static 'img/team4.jpg' %}" alt="Охранник" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                    <h3 class="text-lg font-semibold">Михаил Сидоров</h3>
+                    <p class="text-blue-600 mb-2">Старший охранник</p>
+                    <p class="text-gray-600 text-sm">Ветеран спецназа, опыт 20 лет</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Награды и сертификаты -->
+        <div class="bg-white rounded-xl shadow-md p-8">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-8">Наши сертификаты</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="border border-gray-200 rounded-lg p-2">
+                    <img src="{% static 'img/cert1.jpg' %}" alt="Сертификат 1" class="w-full h-auto">
+                </div>
+                <div class="border border-gray-200 rounded-lg p-2">
+                    <img src="{% static 'img/cert2.jpg' %}" alt="Сертификат 2" class="w-full h-auto">
+                </div>
+                <div class="border border-gray-200 rounded-lg p-2">
+                    <img src="{% static 'img/cert3.png' %}" alt="Сертификат 3" class="w-full h-auto">
+                </div>
+                <div class="border border-gray-200 rounded-lg p-2">
+                    <img src="{% static 'img/cert4.jpg' %}" alt="Сертификат 4" class="w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
